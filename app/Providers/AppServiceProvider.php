@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\ServiceProvider;
 use Override;
+use URL;
 
 final class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +25,10 @@ final class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        JsonResource::withoutWrapping();
+        $forceHttps = !config('app.https_disable');
+        if ($forceHttps) {
+            URL::forceScheme('https');
+        }
     }
 }
