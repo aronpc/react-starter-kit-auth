@@ -141,6 +141,10 @@ Architecture tests ensure all enums follow this convention.
 
 This project is open-sourced software licensed under the [MIT license](LICENSE.md).
 
-Credits: 
+## 🙏 Acknowledgments
+
+This starter kit is based on and inspired by:
+
+- [ShipFast Labs - Modern React Starter Kit with Auth](https://github.com/shipfastlabs/modern-react-starter-kit-auth)
 - [Laravel Starter Kit](https://github.com/laravel/laravel-starter-kit)
 - [Nuno's Strict Laravel Starter Kit](https://github.com/nunomaduro/laravel-starter-kit)
