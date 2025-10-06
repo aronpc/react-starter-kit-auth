@@ -16,3 +16,8 @@ test('all enums should use HasEnumFeatures trait', function () {
         ->enums()
         ->toUseTrait('App\Contracts\HasEnumFeatures');
 });
+
+test('all enums should have a name', function () {
+    expect('App\Enums')
+        ->toHaveSuffix('Enum');
+});
