@@ -1,13 +1,13 @@
-# Modern React Starter Kit with Auth
+# React Starter Kit with Auth
 
 <p>
-    <a href="https://github.com/shipfastlabs/modern-react-starter-kit-auth/actions"><img src="https://github.com/shipfastlabs/modern-react-starter-kit-auth/actions/workflows/tests.yml/badge.svg" alt="Build Status"></a>
-    <a href="https://github.com/shipfastlabs/modern-react-starter-kit-auth/blob/main/LICENSE.md"><img src="https://img.shields.io/github/license/shipfastlabs/modern-react-starter-kit-auth" alt="License"></a>
-    <a href="https://github.com/shipfastlabs/modern-react-starter-kit-auth"><img src="https://img.shields.io/github/stars/shipfastlabs/modern-react-starter-kit-auth" alt="GitHub Stars"></a>
+    <a href="https://github.com/aronpc/react-starter-kit-auth/actions"><img src="https://github.com/aronpc/react-starter-kit-auth/actions/workflows/tests.yml/badge.svg" alt="Build Status"></a>
+    <a href="https://github.com/aronpc/react-starter-kit-auth/blob/main/LICENSE.md"><img src="https://img.shields.io/github/license/aronpc/react-starter-kit-auth" alt="License"></a>
+    <a href="https://github.com/aronpc/react-starter-kit-auth"><img src="https://img.shields.io/github/stars/aronpc/react-starter-kit-auth" alt="GitHub Stars"></a>
 </p>
 
 
-This starter kit brings updates the base laravel starter kit with opinionated modern tooling setup.
+This starter kit updates the base Laravel starter kit with opinionated modern tooling setup.
 
 **What's Included:**
 - **Laravel Latest**: Built with the latest Laravel version (requires PHP 8.4+)
@@ -15,6 +15,7 @@ This starter kit brings updates the base laravel starter kit with opinionated mo
 - **Code Quality**: Integrated Pint, Rector, and PHPStan
 - **Testing Ready**: Pest testing framework included
 - **IDE Support**: Laravel IDE Helper for better development experience
+- **Enhanced Enums**: Pre-configured with ArchTech Enums package and HasEnumFeatures trait
 
 ## 🚀 Quick Start
 
@@ -24,7 +25,7 @@ This starter kit brings updates the base laravel starter kit with opinionated mo
 
 ```bash
 # Create a new project using Laravel installer
-laravel new larasonic --using=shipfastlabs/modern-react-starter-kit-auth
+laravel new my-project --using=aronpc/react-starter-kit-auth
 
 composer run dev
 ```
@@ -32,9 +33,9 @@ composer run dev
 ### Using Git Clone
 
 ```bash
-# Clone the repository via github 
-git clone git@github.com:shipfastlabs/modern-react-starter-kit-auth.git
-cd modern-react-starter-kit-auth
+# Clone the repository via github
+git clone git@github.com:aronpc/react-starter-kit-auth.git
+cd react-starter-kit-auth
 
 # Install dependencies
 composer install
@@ -55,6 +56,7 @@ composer run dev
 
 ### Production
 - `nunomaduro/essentials` - Essential Laravel packages
+- `archtechx/enums` - Enhanced PHP enums with powerful features
 
 ### Development
 - `larastan/larastan` - PHP static analysis
@@ -77,6 +79,63 @@ composer run dev
 # Run tests
 php artisan test
 ```
+
+## 🏗️ Architecture Tests
+
+This starter kit includes comprehensive architecture tests using Pest to enforce code quality and consistency:
+
+### Included Presets
+
+- **PHP Preset**: Ensures no `var_dump`, `dd()`, or deprecated functions
+- **Security Preset**: Prevents usage of dangerous functions like `eval()`, `exec()`, `shell_exec()`
+- **Laravel Preset**: Enforces Laravel best practices and conventions
+
+### Custom Rules
+
+- **Enum Validation**: All files in `App\Enums` must be valid enum classes
+- **HasEnumFeatures Trait**: All enums must use the `HasEnumFeatures` trait for consistency
+
+These tests run automatically with your test suite and help maintain code quality standards across the project.
+
+```bash
+# Run only architecture tests
+php artisan test --filter=ArchTest
+```
+
+## 🎯 Enhanced Enums
+
+This starter kit includes the [ArchTech Enums](https://github.com/archtechx/enums) package with a pre-configured
+`HasEnumFeatures` trait that provides:
+
+- **Invokable cases**: Use enums as callables
+- **Metadata**: Attach arbitrary data to enum cases
+- **Names & Values**: Easy access to case names and values
+- **From**: Create enums from various inputs with better error handling
+- **Comparison**: Rich comparison methods
+- **Options**: Generate arrays for dropdowns and forms
+
+### Usage
+
+All enums in `app/Enums` should use the `HasEnumFeatures` trait:
+
+```php
+<?php
+
+namespace App\Enums;
+
+use App\Contracts\HasEnumFeatures;
+
+enum Status: string
+{
+    use HasEnumFeatures;
+
+    case PENDING = 'pending';
+    case APPROVED = 'approved';
+    case REJECTED = 'rejected';
+}
+```
+
+Architecture tests ensure all enums follow this convention.
 
 ## 📝 License
 
