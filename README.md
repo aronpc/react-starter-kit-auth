@@ -62,7 +62,7 @@ composer run dev
 - `larastan/larastan` - PHP static analysis
 - `rector/rector` - Code refactoring and upgrades
 - `barryvdh/laravel-ide-helper` - IDE autocompletion
-- `laravel/boost` - Laravel-focused MCP server
+- `laravel/boost` - Laravel-focused MCP server for AI assistants
 
 ## 🛠️ Development Tools
 
@@ -79,6 +79,20 @@ composer run dev
 # Run tests
 php artisan test
 ```
+
+## 🤖 Laravel Boost - MCP Server
+
+This starter kit includes [Laravel Boost](https://github.com/laravel/boost), an official Laravel MCP (Model Context
+Protocol) server that enhances AI assistant capabilities when working with Laravel projects.
+
+### Features
+
+- **Project Context**: Provides AI assistants with deep understanding of your Laravel project structure
+- **Code Intelligence**: Enables better code suggestions and refactoring recommendations
+- **Laravel Expertise**: Offers Laravel-specific knowledge and best practices
+- **Seamless Integration**: Works automatically with Claude Code and other MCP-compatible AI tools
+
+Laravel Boost is pre-configured and ready to use - no additional setup required.
 
 ## 🏗️ Architecture Tests
 
