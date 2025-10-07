@@ -302,54 +302,6 @@ protected function isAccessible(User $user, ?string $path = null): bool
 
 - Typically, keys in an Enum should be TitleCase. For example: `FavoritePerson`, `BestLake`, `Monthly`.
 
-=== folio/core rules ===
-
-## Laravel Folio
-
-- Laravel Folio is a file based router. With Laravel Folio, a new route is created for every Blade file within the
-  configured Folio directory. For example, pages are usually in in `resources/views/pages/` and the file structure
-  determines routes:
-    - `pages/index.blade.php` → `/`
-    - `pages/profile/index.blade.php` → `/profile`
-    - `pages/auth/login.blade.php` → `/auth/login`
-- You may list available Folio routes using `php artisan folio:list` or using Boost's `list-routes` tool.
-
-### New Pages & Routes
-
-- Always create new `folio` pages and routes using `artisan folio:page [name]` following existing naming conventions.
-
-<code-snippet name="Example folio:page Commands for Automatic Routing" lang="shell">
-    // Creates: resources/views/pages/products.blade.php → /products
-    php artisan folio:page 'products'
-
-    // Creates: resources/views/pages/products/[id].blade.php → /products/{id}
-    php artisan folio:page 'products/[id]'
-
-</code-snippet>
-
-- Add a 'name' to each new Folio page at the very top of the file so it has a named route available for other parts of
-  the codebase to use.
-
-<code-snippet name="Adding named route to Folio page" lang="php">
-use function Laravel\Folio\name;
-
-name('products.index');
-</code-snippet>
-
-### Support & Documentation
-
-- Folio supports: middleware, serving pages from multiple paths, subdomain routing, named routes, nested routes, index
-  routes, route parameters, and route model binding.
-- If available, use Boost's `search-docs` tool to use Folio to its full potential and help the user effectively.
-
-<code-snippet name="Folio Middleware Example" lang="php">
-use function Laravel\Folio\{name, middleware};
-
-name('admin.products');
-middleware(['auth', 'verified', 'can:manage-products']);
-?>
-</code-snippet>
-
 === laravel/core rules ===
 
 ## Do Things the Laravel Way
@@ -443,24 +395,6 @@ middleware(['auth', 'verified', 'can:manage-products']);
 
 - Casts can and likely should be set in a `casts()` method on a model rather than the `$casts` property. Follow existing
   conventions from other models.
-
-=== fluxui-free/core rules ===
-
-## Flux UI Free
-
-- This project is using the free edition of Flux UI. It has full access to the free components and variants, but does
-  not have access to the Pro components.
-- Flux UI is a component library for Livewire. Flux is a robust, hand-crafted, UI component library for your Livewire
-  applications. It's built using Tailwind CSS and provides a set of components that are easy to use and customize.
-- You should use Flux UI components when available.
-- Fallback to standard Blade components if Flux is unavailable.
-- If available, use Laravel Boost's `search-docs` tool to get the exact documentation and code snippets available for
-  this project.
-- Flux UI components look like this:
-
-<code-snippet name="Flux UI Component Usage Example" lang="blade">
-    <flux:button variant="primary"/>
-</code-snippet>
 
 ### Available Components
 
