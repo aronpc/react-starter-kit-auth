@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mv:*)",
+      "Bash(php artisan test:*)",
+      "Bash(composer show:*)",
+      "Bash(./vendor/bin/phpstan analyse:*)",
+      "Bash(composer fix:*)"
+    ],
+    "deny": [],
+    "ask": []
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "laravel-boost"
+  ]
+}
