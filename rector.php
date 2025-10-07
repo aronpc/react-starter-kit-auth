@@ -40,5 +40,6 @@ return RectorConfig::configure()
         privatization: true,
         earlyReturn: true,
         strictBooleans: true,
+        rectorPreset: true,
     )
     ->withPhpSets();

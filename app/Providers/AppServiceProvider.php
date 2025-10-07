@@ -26,7 +26,7 @@ final class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         JsonResource::withoutWrapping();
-        $forceHttps = !config('app.https_disable');
+        $forceHttps = ! config('app.https_disable');
         if ($forceHttps) {
             URL::forceScheme('https');
         }
