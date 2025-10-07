@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Override;
-use URL;
 
 final class AppServiceProvider extends ServiceProvider
 {

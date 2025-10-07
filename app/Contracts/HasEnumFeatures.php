@@ -12,6 +12,9 @@ use ArchTech\Enums\Names;
 use ArchTech\Enums\Options;
 use ArchTech\Enums\Values;
 
+/**
+ * @phpstan-ignore trait.unused
+ */
 trait HasEnumFeatures
 {
     use Comparable;
