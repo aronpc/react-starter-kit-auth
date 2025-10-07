@@ -4,7 +4,8 @@
     "description": "Laravel starter kit with opinionated modern tooling setup.",
     "keywords": [
         "laravel",
-        "framework"
+        "framework",
+        "starter-kit"
     ],
     "license": "MIT",
     "require": {
