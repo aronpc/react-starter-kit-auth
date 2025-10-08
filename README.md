@@ -6,20 +6,53 @@
     <a href="https://github.com/aronpc/react-starter-kit-auth"><img src="https://img.shields.io/github/stars/aronpc/react-starter-kit-auth" alt="GitHub Stars"></a>
 </p>
 
+## 📋 Overview
 
-This starter kit updates the base Laravel starter kit with opinionated modern tooling setup.
+A modern, production-ready Laravel starter kit featuring React 19, TypeScript, and Inertia.js with full authentication system. This starter kit provides opinionated modern tooling setup with best practices for rapid application development.
 
-**What's Included:**
-- **Laravel Latest**: Built with the latest Laravel version (requires PHP 8.4+)
-- **Essential Packages**: Pre-configured with Laravel Essentials and Laravel Boost
-- **Code Quality**: Integrated Pint, Rector, and PHPStan
-- **Testing Ready**: Pest testing framework included
-- **IDE Support**: Laravel IDE Helper for better development experience
-- **Enhanced Enums**: Pre-configured with ArchTech Enums package and HasEnumFeatures trait
+## 🛠️ Tech Stack
+
+### Backend
+- **Laravel 12**: Latest Laravel framework with PHP 8.4+
+- **Inertia.js**: Modern monolith architecture connecting Laravel with React
+- **Laravel Fortify**: Headless authentication backend
+- **Laravel Wayfinder**: Type-safe routing for frontend
+- **SQLite**: Default database (configurable to MySQL/PostgreSQL)
+- **Queue & Cache**: Database-backed (configurable to Redis)
+
+### Frontend
+- **React 19**: Latest React with modern hooks and concurrent features
+- **TypeScript 5.7**: Full type safety across the frontend
+- **Vite 7**: Lightning-fast build tool and dev server
+- **Tailwind CSS 4.0**: Utility-first CSS framework
+- **Radix UI**: Accessible, unstyled UI components
+- **Lucide Icons**: Beautiful icon library
+- **Inertia.js React**: Seamless SPA experience with SSR support
+
+### Code Quality & Testing
+- **Pest**: Modern PHP testing framework
+- **PHPStan/Larastan**: Static analysis for Laravel
+- **Rector**: Automated code refactoring and upgrades
+- **Pint**: Opinionated PHP code formatter
+- **ESLint**: JavaScript/TypeScript linting
+- **Prettier**: Code formatting for frontend
+- **Architecture Tests**: Enforce code quality and conventions
+
+### Development Tools
+- **Laravel Boost**: MCP server for AI assistant integration
+- **Laravel Pail**: Real-time log viewer
+- **Laravel Sail**: Docker development environment
+- **Laravel IDE Helper**: Enhanced IDE autocompletion
+- **Concurrently**: Run multiple dev servers simultaneously
+
+## 📋 Requirements
+
+- **PHP 8.4+** with required extensions (see `composer.json`)
+- **Node.js 18+** and npm (for frontend assets)
+- **Composer 2+** for PHP dependency management
+- **Database**: SQLite (default), MySQL 8+, or PostgreSQL 13+
 
 ## 🚀 Quick Start
-
-> **Requires [PHP 8.4+](https://php.net/releases/)**.
 
 ### Using Laravel Installer (Recommended)
 
@@ -27,13 +60,14 @@ This starter kit updates the base Laravel starter kit with opinionated modern to
 # Create a new project using Laravel installer
 laravel new my-project --using=aronpc/react-starter-kit-auth
 
+# Start development servers
 composer run dev
 ```
 
 ### Using Git Clone
 
 ```bash
-# Clone the repository via github
+# Clone the repository
 git clone git@github.com:aronpc/react-starter-kit-auth.git
 cd react-starter-kit-auth
 
@@ -48,42 +82,175 @@ php artisan key:generate
 # Run migrations
 php artisan migrate
 
-# Start development server
+# Start development servers (Laravel, Queue, Logs, Vite)
 composer run dev
 ```
 
-## 📦 Included Packages
+## 📜 Available Scripts
 
-### Production
-- `nunomaduro/essentials` - Essential Laravel packages
-- `archtechx/enums` - Enhanced PHP enums with powerful features
-
-### Development
-- `larastan/larastan` - PHP static analysis
-- `rector/rector` - Code refactoring and upgrades
-- `barryvdh/laravel-ide-helper` - IDE autocompletion
-- `laravel/boost` - Laravel-focused MCP server for AI assistants
-
-## 🛠️ Development Tools
+### Composer Scripts (PHP)
 
 ```bash
-# Code formatting with Pint
-./vendor/bin/pint
+# Development
+composer run dev              # Start all dev servers (artisan, queue, pail, vite)
+composer run dev:ssr          # Start dev servers with SSR support
 
-# Static analysis with PHPStan/Larastan
-./vendor/bin/phpstan analyse --memory-limit=-1
+# Code Quality
+composer run fix              # Auto-fix code with Rector and Pint
+composer run refactor         # Run Rector code refactoring
 
-# Code refactoring with Rector
-./vendor/bin/rector
+# Testing
+composer run test             # Run all tests (unit, types, refactor checks)
+composer run test:unit        # Run Pest unit and feature tests
+composer run test:unit:coverage  # Run tests with coverage report
+composer run test:types       # Run PHPStan static analysis
+composer run test:refactor    # Check Rector refactoring suggestions (dry-run)
+composer run test:lint        # Check code style with Pint (no changes)
 
-# Run tests
-php artisan test
+# Direct tool access
+./vendor/bin/pint             # Format code with Pint
+./vendor/bin/phpstan analyse  # Run static analysis
+./vendor/bin/rector           # Run Rector
+php artisan test              # Run Pest tests
 ```
+
+### NPM Scripts (Frontend)
+
+```bash
+npm run dev                   # Start Vite dev server with HMR
+npm run build                 # Build for production
+npm run build:ssr             # Build for production with SSR
+
+# Code Quality
+npm run lint                  # Run ESLint with auto-fix
+npm run format                # Format code with Prettier
+npm run format:check          # Check formatting without changes
+npm run types                 # Run TypeScript type checking
+```
+
+## 🔧 Environment Variables
+
+Key environment variables (see `.env.example` for full list):
+
+```bash
+# Application
+APP_NAME=Laravel              # Application name
+APP_ENV=local                 # Environment (local, production)
+APP_KEY=                      # Generate with: php artisan key:generate
+APP_URL=http://localhost      # Application URL
+APP_LOCALE=pt_BR              # Default locale (pt_BR, en, etc.)
+
+# Database
+DB_CONNECTION=sqlite          # Database type (sqlite, mysql, pgsql)
+# For MySQL/PostgreSQL, configure: DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME, DB_PASSWORD
+
+# Session & Cache
+SESSION_DRIVER=database       # Session storage (database, redis, file)
+CACHE_STORE=database          # Cache driver (database, redis, file)
+QUEUE_CONNECTION=database     # Queue driver (database, redis, sync)
+
+# Mail (for auth emails)
+MAIL_MAILER=log               # Mail driver (log, smtp, mailgun, etc.)
+MAIL_FROM_ADDRESS="hello@example.com"
+MAIL_FROM_NAME="${APP_NAME}"
+
+# Frontend
+VITE_APP_NAME="${APP_NAME}"   # Exposed to frontend
+```
+
+For production deployment, ensure you configure proper database, cache, queue, and mail settings.
+
+## 📦 Key Packages
+
+### Backend (PHP)
+- `laravel/framework` - Laravel 12 framework
+- `inertiajs/inertia-laravel` - Inertia.js server adapter
+- `laravel/fortify` - Authentication backend
+- `laravel/wayfinder` - Type-safe routing
+- `nunomaduro/essentials` - Essential Laravel packages
+- `archtechx/enums` - Enhanced PHP enums
+
+### Frontend (JavaScript/TypeScript)
+- `react` & `react-dom` - React 19
+- `@inertiajs/react` - Inertia.js React adapter
+- `typescript` - TypeScript support
+- `vite` - Build tool and dev server
+- `tailwindcss` - Utility-first CSS
+- `@radix-ui/*` - Accessible UI components
+- `lucide-react` - Icon library
+
+### Development Tools
+- `pestphp/pest` - Testing framework
+- `larastan/larastan` - Static analysis
+- `rector/rector` - Code refactoring
+- `laravel/pint` - Code formatter
+- `laravel/boost` - MCP server for AI
+- `laravel/sail` - Docker environment
+- `eslint` & `prettier` - Frontend code quality
+
+## 📁 Project Structure
+
+```
+├── app/
+│   ├── Contracts/          # Interfaces and traits (HasEnumFeatures)
+│   ├── Http/
+│   │   ├── Controllers/    # Auth, Settings controllers
+│   │   ├── Middleware/     # Inertia, Appearance middleware
+│   │   └── Requests/       # Form request validation
+│   ├── Models/             # Eloquent models (User)
+│   └── Providers/          # Service providers (Fortify, App)
+├── resources/
+│   ├── css/
+│   │   └── app.css         # Tailwind CSS entry point
+│   ├── js/
+│   │   ├── actions/        # Server actions (App, Illuminate, Laravel)
+│   │   ├── components/     # React components and UI library
+│   │   ├── hooks/          # Custom React hooks
+│   │   ├── layouts/        # Page layouts (app, auth, settings)
+│   │   ├── pages/          # Inertia pages (auth, dashboard, settings)
+│   │   ├── routes/         # Wayfinder type-safe routes
+│   │   ├── types/          # TypeScript definitions
+│   │   ├── app.tsx         # Main React entry point
+│   │   └── ssr.tsx         # SSR entry point
+│   └── views/
+│       └── app.blade.php   # Root Blade template for Inertia
+├── routes/
+│   ├── web.php             # Application routes
+│   ├── auth.php            # Authentication routes
+│   └── console.php         # Artisan commands
+├── tests/
+│   ├── Feature/            # Feature tests
+│   └── Unit/               # Unit tests
+├── database/
+│   ├── migrations/         # Database migrations
+│   └── seeders/            # Database seeders
+├── config/                 # Laravel configuration files
+├── composer.json           # PHP dependencies and scripts
+├── package.json            # Node dependencies and scripts
+├── vite.config.ts          # Vite build configuration
+├── phpunit.xml             # PHPUnit/Pest configuration
+├── phpstan.neon            # PHPStan configuration
+├── rector.php              # Rector configuration
+├── pint.json               # Pint configuration
+├── tsconfig.json           # TypeScript configuration
+├── eslint.config.js        # ESLint configuration
+└── boost.json              # Laravel Boost MCP configuration
+```
+
+### Entry Points
+
+**Backend:**
+- `artisan` - Laravel CLI entry point
+- `public/index.php` - HTTP entry point
+
+**Frontend:**
+- `resources/js/app.tsx` - Client-side React application
+- `resources/js/ssr.tsx` - Server-side rendering entry point
+- `resources/css/app.css` - CSS entry point with Tailwind
 
 ## 🤖 Laravel Boost - MCP Server
 
-This starter kit includes [Laravel Boost](https://github.com/laravel/boost), an official Laravel MCP (Model Context
-Protocol) server that enhances AI assistant capabilities when working with Laravel projects.
+This starter kit includes [Laravel Boost](https://github.com/laravel/boost), an official Laravel MCP (Model Context Protocol) server that enhances AI assistant capabilities when working with Laravel projects.
 
 ### Features
 
@@ -92,7 +259,14 @@ Protocol) server that enhances AI assistant capabilities when working with Larav
 - **Laravel Expertise**: Offers Laravel-specific knowledge and best practices
 - **Seamless Integration**: Works automatically with Claude Code and other MCP-compatible AI tools
 
-Laravel Boost is pre-configured and ready to use - no additional setup required.
+### Configuration
+
+MCP server is configured in `.mcp.json` and `boost.json`. Laravel Boost is pre-configured and ready to use - no additional setup required.
+
+```bash
+# MCP server runs via:
+php artisan boost:mcp
+```
 
 ## 🏗️ Architecture Tests
 
