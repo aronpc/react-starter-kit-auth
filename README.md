@@ -128,6 +128,43 @@ npm run format:check          # Check formatting without changes
 npm run types                 # Run TypeScript type checking
 ```
 
+## 🌐 Internationalization (i18n)
+
+This starter kit is built with multi-language support from the ground up:
+
+- **Translation System**: Uses Laravel's built-in localization
+- **Default Locale**: Configured via `APP_LOCALE` environment variable
+- **Fallback Locale**: English (`en`)
+- **Structure**: Organized translation files in `lang/{locale}/`
+
+### Usage
+
+```php
+// In PHP/Blade
+{{ __('messages.welcome', ['name' => $user->name]) }}
+
+// In controllers/models
+$message = __('messages.success');
+
+// Pluralization
+{{ trans_choice('messages.items', $count) }}
+```
+
+**Translation File Structure:**
+```
+lang/
+├── en/
+│   ├── auth.php        # Authentication messages
+│   ├── validation.php  # Validation messages
+│   └── messages.php    # General messages
+└── pt_BR/
+    ├── auth.php
+    ├── validation.php
+    └── messages.php
+```
+
+**Important**: Never hardcode user-facing text - always use translation keys for proper i18n support.
+
 ## 🔧 Environment Variables
 
 Key environment variables (see `.env.example` for full list):

@@ -93,6 +93,105 @@ new class extends Component {
 - Eager load to prevent N+1: `User::with('posts')->get()`
 - Actions: `php artisan make:action CreateTodoAction`
 
+### Internationalization (i18n)
+
+- **ALWAYS** use Laravel's translation system - never hardcode text
+- Structure: `lang/{locale}/` for translation files
+- Use `__()` helper in PHP: `__('messages.welcome')`
+- Use `@lang()` or `{{ __() }}` in Blade templates
+- Group translations logically: `auth.php`, `validation.php`, `messages.php`, etc.
+- Default locale in `config/app.php`, fallback to `en`
+- For dynamic content (user-generated), store in database with locale column
+- Test all features with multiple locales
+
+**Structure:**
+```
+lang/
+├── en/
+│   ├── messages.php
+│   ├── auth.php
+│   └── validation.php
+└── pt_BR/
+    ├── messages.php
+    ├── auth.php
+    └── validation.php
+```
+
+**PHP/Blade Usage:**
+```php
+// PHP/Blade
+{{ __('messages.welcome', ['name' => $user->name]) }}
+
+// Volt
+<h1>{{ __('messages.title') }}</h1>
+
+// Pluralization
+{{ trans_choice('messages.items', $count) }}
+```
+
+**React/Inertia Usage:**
+
+Share translations in `HandleInertiaRequests` middleware:
+```php
+public function share(Request $request): array
+{
+    return [
+        ...parent::share($request),
+        'translations' => fn () => [
+            'auth' => __('auth'),
+            'messages' => __('messages'),
+        ],
+    ];
+}
+```
+
+Create translation hook:
+```typescript
+// resources/js/hooks/useTranslations.ts
+import { usePage } from '@inertiajs/react';
+
+export function useTranslations() {
+  const { translations } = usePage().props;
+
+  const t = (key: string, replacements?: Record<string, any>) => {
+    const keys = key.split('.');
+    let value = translations;
+
+    for (const k of keys) {
+      value = value?.[k];
+    }
+
+    if (typeof value !== 'string') return key;
+
+    if (replacements) {
+      Object.entries(replacements).forEach(([k, v]) => {
+        value = value.replace(`:${k}`, v);
+      });
+    }
+
+    return value;
+  };
+
+  return { t };
+}
+```
+
+Usage in components:
+```tsx
+import { useTranslations } from '@/hooks/useTranslations';
+
+export default function Welcome() {
+  const { t } = useTranslations();
+
+  return (
+    <div>
+      <h1>{t('messages.welcome', { name: 'John' })}</h1>
+      <p>{t('auth.failed')}</p>
+    </div>
+  );
+}
+```
+
 ### Laravel 12
 
 - No `app\Console\Kernel.php` - use `bootstrap/app.php`
