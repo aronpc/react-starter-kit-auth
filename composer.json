@@ -29,7 +29,6 @@
         "laravel/sail": "^1.41",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.6",
-        "peckphp/peck": "^0.2.0",
         "pestphp/pest": "^4.1",
         "pestphp/pest-plugin-laravel": "^4.0",
         "rector/rector": "^2.1",
@@ -72,23 +71,19 @@
             "Composer\\Config::disableProcessTimeout",
             "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"php artisan inertia:start-ssr\" --names=server,queue,logs,ssr --kill-others"
         ],
-        "refactor": "./vendor/bin/rector process",
+        "refactor": "./vendor/bin/rector",
         "fix": [
-            "@test:types",
             "@refactor",
-            "./vendor/bin/pint"
+            "./vendor/bin/pint --parallel"
         ],
-        "test:typos": "./vendor/bin/peck",
         "test:lint": [
-            "./vendor/bin/pint --test",
-            "npm run test:lint"
+            "./vendor/bin/pint --test --parallel"
         ],
         "test:unit": "./vendor/bin/pest --parallel",
         "test:unit:coverage": "./vendor/bin/pest --parallel --coverage",
         "test:types": "./vendor/bin/phpstan analyse --memory-limit=256M",
         "test:refactor": "./vendor/bin/rector process --dry-run",
         "test": [
-            "@test:typos",
             "@test:unit",
             "@test:types",
             "@test:refactor"
